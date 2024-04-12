@@ -1,20 +1,20 @@
 class DevScope < Formula
   desc "A tool to help diagnose errors, setup machines, and report bugs to authors."
-  version "2024.2.45"
+  version "2024.2.46"
   on_macos do
     on_arm do
-      url "https://github.com/oscope-dev/scope/releases/download/v2024.2.45/dev-scope-aarch64-apple-darwin.tar.xz"
-      sha256 "b7e782bfdfa187463f78817f7e5f8cd7b558d56c5a11dd5e17ead5a0c99ff70a"
+      url "https://github.com/oscope-dev/scope/releases/download/v2024.2.46/dev-scope-aarch64-apple-darwin.tar.xz"
+      sha256 "b1cd77690c1cc66e570304c24aec97916800fa681e44cc89f05149fd72d07a59"
     end
     on_intel do
-      url "https://github.com/oscope-dev/scope/releases/download/v2024.2.45/dev-scope-x86_64-apple-darwin.tar.xz"
-      sha256 "e120db07245d5ecdb030c75aee5b5253ccbc8dde5b8971ac4fde7d68aef876e7"
+      url "https://github.com/oscope-dev/scope/releases/download/v2024.2.46/dev-scope-x86_64-apple-darwin.tar.xz"
+      sha256 "219381fe1521c5ea12a9793fabafc04eb2753f53a35262d8de773ff395faa384"
     end
   end
   on_linux do
     on_intel do
-      url "https://github.com/oscope-dev/scope/releases/download/v2024.2.45/dev-scope-x86_64-unknown-linux-gnu.tar.xz"
-      sha256 "84e9d68871696daf183a0be46dcfe656d1c0b3a473ca6182816c34a1c3e87c1d"
+      url "https://github.com/oscope-dev/scope/releases/download/v2024.2.46/dev-scope-x86_64-unknown-linux-gnu.tar.xz"
+      sha256 "46f14fab818bc15464f9a78a5e85aff27df2d2812281dbadd17dd603c289e012"
     end
   end
   license "BSD-3-Clause"
