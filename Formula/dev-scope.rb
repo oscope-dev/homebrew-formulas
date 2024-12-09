@@ -1,40 +1,52 @@
 class DevScope < Formula
   desc "A tool to help diagnose errors, setup machines, and report bugs to authors."
-  version "2024.2.62"
-  on_macos do
-    on_arm do
-      url "https://github.com/oscope-dev/scope/releases/download/v2024.2.62/dev-scope-aarch64-apple-darwin.tar.xz"
-      sha256 "76f0a022180c80ca6fbe57d9c55141d7f30e3352c72ad94f77433eb6a92d482a"
+  homepage "https://github.com/oscope-dev/scope"
+  version "2024.2.64"
+  if OS.mac?
+    if Hardware::CPU.arm?
+      url "https://github.com/oscope-dev/scope/releases/download/v2024.2.64/dev-scope-aarch64-apple-darwin.tar.xz"
+      sha256 "585b2879a840511a6692abea2e655b325b730a5dbd4b5a9acb9e329abf746c8c"
     end
-    on_intel do
-      url "https://github.com/oscope-dev/scope/releases/download/v2024.2.62/dev-scope-x86_64-apple-darwin.tar.xz"
-      sha256 "55569ed9848316430f15d37695464c7810449544504f4b5b8e590e975c229aa2"
+    if Hardware::CPU.intel?
+      url "https://github.com/oscope-dev/scope/releases/download/v2024.2.64/dev-scope-x86_64-apple-darwin.tar.xz"
+      sha256 "256940bec11be3997a1702fafdec0ef23517edabb74a65f5a606c62376d0ff60"
     end
   end
-  on_linux do
-    on_intel do
-      url "https://github.com/oscope-dev/scope/releases/download/v2024.2.62/dev-scope-x86_64-unknown-linux-gnu.tar.xz"
-      sha256 "499247e814e3005d1c1e80ee64855d7a05aa0f6832330fc0f64d763e5a8153de"
-    end
+  if OS.linux? && Hardware::CPU.intel?
+    url "https://github.com/oscope-dev/scope/releases/download/v2024.2.64/dev-scope-x86_64-unknown-linux-gnu.tar.xz"
+    sha256 "452d72f6d46cf86add7eaafae10b9c70c55de2b55a45332af027848e2f9c308d"
   end
   license "BSD-3-Clause"
 
+  BINARY_ALIASES = {
+    "aarch64-apple-darwin":              {},
+    "x86_64-apple-darwin":               {},
+    "x86_64-unknown-linux-gnu":          {},
+    "x86_64-unknown-linux-musl-dynamic": {},
+    "x86_64-unknown-linux-musl-static":  {},
+  }.freeze
+
+  def target_triple
+    cpu = Hardware::CPU.arm? ? "aarch64" : "x86_64"
+    os = OS.mac? ? "apple-darwin" : "unknown-linux-gnu"
+
+    "#{cpu}-#{os}"
+  end
+
+  def install_binary_aliases!
+    BINARY_ALIASES[target_triple.to_sym].each do |source, dests|
+      dests.each do |dest|
+        bin.install_symlink bin/source.to_s => dest
+      end
+    end
+  end
+
   def install
-    on_macos do
-      on_arm do
-        bin.install "scope", "scope-intercept"
-      end
-    end
-    on_macos do
-      on_intel do
-        bin.install "scope", "scope-intercept"
-      end
-    end
-    on_linux do
-      on_intel do
-        bin.install "scope", "scope-intercept"
-      end
-    end
+    bin.install "scope", "scope-intercept" if OS.mac? && Hardware::CPU.arm?
+    bin.install "scope", "scope-intercept" if OS.mac? && Hardware::CPU.intel?
+    bin.install "scope", "scope-intercept" if OS.linux? && Hardware::CPU.intel?
+
+    install_binary_aliases!
 
     # Homebrew will automatically install these, so we don't need to do that
     doc_files = Dir["README.*", "readme.*", "LICENSE", "LICENSE.*", "CHANGELOG.*"]
@@ -42,6 +54,6 @@ class DevScope < Formula
 
     # Install any leftover files in pkgshare; these are probably config or
     # sample files.
-    pkgshare.install *leftover_contents unless leftover_contents.empty?
+    pkgshare.install(*leftover_contents) unless leftover_contents.empty?
   end
 end
