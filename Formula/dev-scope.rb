@@ -1,20 +1,20 @@
 class DevScope < Formula
   desc "A tool to help diagnose errors, setup machines, and report bugs to authors."
   homepage "https://github.com/oscope-dev/scope"
-  version "2024.2.84"
+  version "2024.2.85"
   if OS.mac?
     if Hardware::CPU.arm?
-      url "https://github.com/oscope-dev/scope/releases/download/v2024.2.84/dev-scope-aarch64-apple-darwin.tar.xz"
-      sha256 "93191de5043852f31fc3bf95988e6465190fda85bbdcefa4b7003c9d1634ba68"
+      url "https://github.com/oscope-dev/scope/releases/download/v2024.2.85/dev-scope-aarch64-apple-darwin.tar.xz"
+      sha256 "736541c4c9bce89080d6e77deea8afbfd07cc979694558be44f67be146a67b6e"
     end
     if Hardware::CPU.intel?
-      url "https://github.com/oscope-dev/scope/releases/download/v2024.2.84/dev-scope-x86_64-apple-darwin.tar.xz"
-      sha256 "71312b98c323fdbd2c00670510b4de999dc5c4943417a3fa90c360e71e8e7086"
+      url "https://github.com/oscope-dev/scope/releases/download/v2024.2.85/dev-scope-x86_64-apple-darwin.tar.xz"
+      sha256 "1b1db1d39f1f4e575f3bc915ddbb8923712799680d214eed3fded21498b4fec4"
     end
   end
   if OS.linux? && Hardware::CPU.intel?
-    url "https://github.com/oscope-dev/scope/releases/download/v2024.2.84/dev-scope-x86_64-unknown-linux-gnu.tar.xz"
-    sha256 "399930c54dd06d270a78520de4e5a22b8b82295d906d3d0ca41b1c64066d8fc2"
+    url "https://github.com/oscope-dev/scope/releases/download/v2024.2.85/dev-scope-x86_64-unknown-linux-gnu.tar.xz"
+    sha256 "b0b1121152c16d01fbf9456c0e2159b57a7ca28258ffe70f3a5b9745b1dc4ef9"
   end
   license "BSD-3-Clause"
 
